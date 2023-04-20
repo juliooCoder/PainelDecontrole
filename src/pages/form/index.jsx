@@ -8,8 +8,21 @@ import Header from "../../components/Header";
 const Form = () => {
     const isNonMobile = useMediaQuery("(min-width:600px)");
     const phoneRegExp = /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
-    const handleFormSubmit = (values) => {
+    const handleFormSubmit = async (values) => {
         console.log(values);
+        try {
+            const response = await fetch("http://localhost:4000/cadastro", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(values)
+            });
+            const data = await response.json();
+            console.log(data);
+        } catch (error) {
+            console.error(error);
+        }
     };
     const initialValues = {
         firstName: "",
